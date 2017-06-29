@@ -4,7 +4,7 @@
 
 Fortran source files were converted to C files
 using [f2c](http://www.netlib.org/f2c/). *NOTE: Per instructions on
-source page, lines depending on MSFLIB (Microsoft PowerStation) -
+source page, lines depending on MSFLIB (Microsoft PowerStation) were commented out -
 should not affect model.*
 
 ### Other packages
