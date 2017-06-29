@@ -7,3 +7,6 @@ using [f2c](http://www.netlib.org/f2c/). **NOTE: Per instructions on
 source page, lines depending on MSFLIB (Microsoft PowerStation) -
 should not affect model.
 
+### Other packages
+
+[hyrdusR](https://github.com/shoebodh/hydrusR)
