@@ -1,4 +1,4 @@
-/* HYDRUS.f -- translated by f2c (version 12.02.01).
+/* HYDRUS.f -- translated by f2c (version 20160102).
    You must link the resulting object file with libf2c:
 	on Microsoft Windows system, link with libf2c.lib;
 	on Linux or Unix systems, link with .../path/to/libf2c.a -lm
@@ -10,8 +10,7 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include <stdlib.h> /* For exit() */
-#include <f2c.h>
+#include "f2c.h"
 
 /* Table of constant values */
 
@@ -45,23 +44,10 @@ static integer c__3 = 3;
 /*     COPYRIGHT (c) 2005-9, Jiri Simunek, PC-Progress                  * */
 /*                                                                      * */
 /* ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||* */
-/* Actual main program */
-int main(int argc, char **argv)
-{
-	extern int MAIN__();
-	libf2c_init(argc, argv);
-	MAIN__();
-	libf2c_close();
-	exit(0);
-	return 0;
-}
-
-/* Main program */
-int MAIN__(void)
+/* Main program */ int MAIN__(void)
 {
     /* Initialized data */
 
-    static logical lstopconv = TRUE_;
     static integer inonconv = 0;
     static integer iunit[7] = { 50,70,71,75,76,77,78 };
 
@@ -75,6 +61,17 @@ int MAIN__(void)
     doublereal d__1, d__2;
     olist o__1;
     cllist cl__1;
+
+    /* Builtin functions */
+    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
+    integer f_open(olist *), s_rsfe(cilist *), do_fio(integer *, char *, 
+	    ftnlen), e_rsfe(void), f_clos(cllist *);
+    /* Subroutine */ int s_cat(char *, char **, integer *, integer *, ftnlen);
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void);
+    double sqrt(doublereal);
+    integer s_rsle(cilist *), e_rsle(void);
+    /* Subroutine */ int s_stop(char *, ftnlen);
 
     /* Local variables */
     static real dtold, dtmaxa;
@@ -217,14 +214,13 @@ int MAIN__(void)
     extern /* Subroutine */ int snow_(real *, real *, real *, real *, real *, 
 	    real *, real *, logical *, real *, real *, integer *);
     static real cmin, evap, xlat, vtop;
-    extern /* Subroutine */ int closeoutput_(doublereal *, integer *, logical 
-	    *, logical *, logical *, logical *, logical *, logical *), 
-	    updateenergy_(doublereal *, real *, real *, real *, real *, real *
-	    , real *, real *, real *, real *, real *, real *, real *, real *, 
-	    integer *, integer *, real *, real *, real *, integer *, logical *
-	    , logical *, real *, real *, real *);
+    extern /* Subroutine */ int updateenergy_(doublereal *, real *, real *, 
+	    real *, real *, real *, real *, real *, real *, real *, real *, 
+	    real *, real *, real *, integer *, integer *, real *, real *, 
+	    real *, integer *, logical *, logical *, real *, real *, real *);
+    static integer ikod;
     static real spot1;
-    static integer ikod, iter;
+    static integer iter;
     static logical freed, atmbc, lbact, lchem;
     static real ccuma[11];
     static integer kbold, kappa[1001];
@@ -541,12 +537,10 @@ int MAIN__(void)
     /* Fortran I/O blocks */
     static cilist io___8 = { 1, 10, 0, fmt_101, 0 };
     static cilist io___362 = { 0, 6, 0, 0, 0 };
-    static cilist io___388 = { 0, 6, 0, 0, 0 };
-    static cilist io___389 = { 0, 5, 0, 0, 0 };
-    static cilist io___420 = { 0, 6, 0, 0, 0 };
-    static cilist io___421 = { 0, 5, 0, 0, 0 };
-    static cilist io___425 = { 0, 6, 0, 0, 0 };
-    static cilist io___426 = { 0, 5, 0, 0, 0 };
+    static cilist io___418 = { 0, 6, 0, 0, 0 };
+    static cilist io___419 = { 0, 5, 0, 0, 0 };
+    static cilist io___423 = { 0, 6, 0, 0, 0 };
+    static cilist io___424 = { 0, 5, 0, 0, 0 };
 
 
 /* ####################################################################### */
@@ -1296,18 +1290,15 @@ L13:
 	} else {
 	    inonconv = 0;
 	}
-	if (lstopconv && ! convgf && inonconv >= 10) {
-	    closeoutput_(&rtime1, &ns, &topinf, &botinf, &lchem, &lscreen, &
-		    lmeteo, &lprint);
-	    if (lenter) {
-		s_wsle(&io___388);
-		do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
-		e_wsle();
-		s_rsle(&io___389);
-		e_rsle();
-	    }
-	    s_stop("", (ftnlen)0);
-	}
+/*    !   if(lStopConv.and..not.ConvgF.and.iNonConv.ge.10) then */
+/*    !     call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo, */
+/*    !                     lPrint) */
+/*    !     if(lEnter) then */
+/*    !       write(*,*) 'Press Enter to continue' */
+/*    !       read(*,*) */
+/*    !     end if */
+/*    !     stop */
+/*    !   end if */
 	if (lmeteo && lmetdaily && ! lenbal) {
 	    daymeteoout_(&t, &etcomb, &evapp, &transp, &rns, &rnl, &radterm, &
 		    aeroterm, &precc, &rinterc, &excesint, &tempa, &rh_a__, &
@@ -1547,13 +1538,13 @@ L13:
     }
 /*     Time governing --------------------------------------------------- */
     if ((d__1 = t - tmax, abs(d__1)) <= dtmin * .5f || t > tmax) {
-	closeoutput_(&rtime1, &ns, &topinf, &botinf, &lchem, &lscreen, &
-		lmeteo, &lprint);
+/*     !   call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo, */
+/*     !                   lPrint) */
 	if (lenter) {
-	    s_wsle(&io___420);
+	    s_wsle(&io___418);
 	    do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
 	    e_wsle();
-	    s_rsle(&io___421);
+	    s_rsle(&io___419);
 	    e_rsle();
 	}
 	s_stop("", (ftnlen)0);
@@ -1727,10 +1718,10 @@ L1000:
     errorout_(&ierr, cfilename, cdatapath, &ilengthpath, &lscreen, (ftnlen)
 	    260, (ftnlen)260);
     if (lenter) {
-	s_wsle(&io___425);
+	s_wsle(&io___423);
 	do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
 	e_wsle();
-	s_rsle(&io___426);
+	s_rsle(&io___424);
 	e_rsle();
     }
     s_stop("", (ftnlen)0);
@@ -1748,16 +1739,22 @@ L1000:
     olist o__1;
     cllist cl__1;
 
+    /* Builtin functions */
+    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen), s_cat(char *,
+	     char **, integer *, integer *, ftnlen);
+    integer f_open(olist *), s_wsle(cilist *), do_lio(integer *, integer *, 
+	    char *, ftnlen), e_wsle(void), f_clos(cllist *);
+
     /* Local variables */
     static char cerr__[260*33], cfilenameerr[260];
 
     /* Fortran I/O blocks */
+    static cilist io___427 = { 0, 6, 0, 0, 0 };
+    static cilist io___428 = { 0, 99, 0, 0, 0 };
     static cilist io___429 = { 0, 6, 0, 0, 0 };
     static cilist io___430 = { 0, 99, 0, 0, 0 };
     static cilist io___431 = { 0, 6, 0, 0, 0 };
-    static cilist io___432 = { 0, 99, 0, 0, 0 };
-    static cilist io___433 = { 0, 6, 0, 0, 0 };
-    static cilist io___434 = { 0, 6, 0, 0, 0 };
+    static cilist io___432 = { 0, 6, 0, 0, 0 };
 
 
     s_copy(cerr__, "Open file error in file :", (ftnlen)260, (ftnlen)25);
@@ -1844,22 +1841,22 @@ L1000:
     }
     if (*ierr <= 2) {
 	if (*lscreen) {
-	    s_wsle(&io___429);
+	    s_wsle(&io___427);
 	    do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	    do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
 	    e_wsle();
 	}
-	s_wsle(&io___430);
+	s_wsle(&io___428);
 	do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
 	e_wsle();
     } else {
 	if (*lscreen) {
-	    s_wsle(&io___431);
+	    s_wsle(&io___429);
 	    do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	    e_wsle();
 	}
-	s_wsle(&io___432);
+	s_wsle(&io___430);
 	do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	e_wsle();
     }
@@ -1869,11 +1866,11 @@ L1000:
     f_clos(&cl__1);
     return 0;
 L901:
-    s_wsle(&io___433);
+    s_wsle(&io___431);
     do_lio(&c__9, &c__1, "Folder with input data of the specified project do"
 	    "es not exist or pathway is too long or corrupted", (ftnlen)98);
     e_wsle();
-    s_wsle(&io___434);
+    s_wsle(&io___432);
     do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
     e_wsle();
     return 0;

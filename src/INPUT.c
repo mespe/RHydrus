@@ -1,4 +1,4 @@
-/* INPUT.f -- translated by f2c (version 12.02.01).
+/* INPUT.f -- translated by f2c (version 20160102).
    You must link the resulting object file with libf2c:
 	on Microsoft Windows system, link with libf2c.lib;
 	on Linux or Unix systems, link with .../path/to/libf2c.a -lm
@@ -10,8 +10,7 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include <stdlib.h> /* For exit() */
-#include <f2c.h>
+#include "f2c.h"
 
 /* Table of constant values */
 
@@ -57,6 +56,12 @@ static integer c__33 = 33;
 
     /* System generated locals */
     integer i__1, i__2;
+
+    /* Builtin functions */
+    integer s_rsle(cilist *), e_rsle(void), s_rsfe(cilist *), do_fio(integer *
+	    , char *, ftnlen), e_rsfe(void), do_lio(integer *, integer *, 
+	    char *, ftnlen), i_sign(integer *, integer *), s_wsle(cilist *), 
+	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void);
 
     /* Local variables */
     extern integer igetfileversion_(integer *, integer *);
@@ -1186,6 +1191,9 @@ L903:
 /* Subroutine */ int conversion_(char *lunit, char *tunit, real *xconv, real *
 	tconv, ftnlen lunit_len, ftnlen tunit_len)
 {
+    /* Builtin functions */
+    integer s_cmp(char *, char *, ftnlen, ftnlen);
+
 /*     conversions from m and s to Hydrus units */
     *xconv = 1.f;
     *tconv = 1.f;
@@ -1253,6 +1261,13 @@ L903:
     /* System generated locals */
     integer conc_dim1, conc_offset, sorb_dim1, sorb_offset, sorb2_dim1, 
 	    sorb2_offset, i__1, i__2, i__3, i__4;
+
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void);
+    /* Subroutine */ int s_stop(char *, ftnlen);
+    integer s_wsfe(cilist *), e_wsfe(void), do_fio(integer *, char *, ftnlen);
+    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
 
     /* Local variables */
     extern integer igetfileversion_(integer *, integer *);
@@ -2810,6 +2825,14 @@ L901:
     real r__1, r__2;
     doublereal d__1, d__2, d__3, d__4;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void);
+    /* Subroutine */ int s_stop(char *, ftnlen);
+    integer s_wsfe(cilist *), e_wsfe(void);
+    double pow_dd(doublereal *, doublereal *);
+    integer do_fio(integer *, char *, ftnlen);
+
     /* Local variables */
     static real g;
     static integer i__, m;
@@ -3326,6 +3349,11 @@ L902:
     integer i__1[2], i__2, i__3;
     olist o__1;
 
+    /* Builtin functions */
+    /* Subroutine */ int s_cat(char *, char **, integer *, integer *, ftnlen);
+    integer f_open(olist *), s_rsle(cilist *), e_rsle(void), do_lio(integer *,
+	     integer *, char *, ftnlen);
+
     /* Local variables */
     extern integer len_trim__(char *, ftnlen);
     static integer i__, n;
@@ -3454,6 +3482,12 @@ L901:
 	    captab_offset, thetab_dim1, thetab_offset, i__1, i__2, i__3;
     real r__1, r__2;
     doublereal d__1;
+
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void);
+    double r_lg10(real *), pow_dd(doublereal *, doublereal *);
+    integer s_rsle(cilist *), e_rsle(void), do_fio(integer *, char *, ftnlen);
 
     /* Local variables */
     static integer i__, m;
@@ -3811,6 +3845,10 @@ L901:
     /* System generated locals */
     integer i__1, i__2;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void);
+
     /* Local variables */
     extern integer igetfileversion_(integer *, integer *);
     static integer i__, mpl, ivera;
@@ -4157,6 +4195,12 @@ L901:
 
     /* System generated locals */
     integer i__1, i__2;
+
+    /* Builtin functions */
+    integer s_rsle(cilist *), e_rsle(void), do_lio(integer *, integer *, char 
+	    *, ftnlen), s_wsle(cilist *), e_wsle(void);
+    /* Subroutine */ int s_stop(char *, ftnlen);
+    integer s_wsfe(cilist *), e_wsfe(void);
 
     /* Local variables */
     extern integer igetfileversion_(integer *, integer *);
@@ -4738,6 +4782,10 @@ L901:
     /* System generated locals */
     integer i__1, i__2;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void);
+
     /* Local variables */
     static integer i__, imosink, imssink;
 
@@ -5111,6 +5159,13 @@ L901:
     integer i__1, i__2;
     real r__1, r__2;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void);
+    /* Subroutine */ int s_stop(char *, ftnlen);
+    double log(doublereal);
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
+
     /* Local variables */
     static integer i__;
     static real rtm;
@@ -5415,6 +5470,11 @@ L902:
     /* System generated locals */
     integer i__1, i__2;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_rsle(cilist *), e_rsle(void), s_wsfe(cilist *), 
+	    do_fio(integer *, char *, ftnlen), e_wsfe(void);
+
     /* Local variables */
     static integer i__, j;
     static real tb, tt;
@@ -5628,6 +5688,11 @@ L902:
     integer i__1, i__2;
     real r__1, r__2, r__3, r__4, r__5;
 
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void), do_fio(integer *, 
+	    char *, ftnlen);
+
     /* Local variables */
     static integer i__, m;
     static real consn;
@@ -5794,6 +5859,11 @@ L901:
     integer chpar_dim1, chpar_offset, wdep_dim1, wdep_offset, i__1, i__2, 
 	    i__3;
     real r__1, r__2;
+
+    /* Builtin functions */
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void), s_rsle(cilist *), 
+	    e_rsle(void), do_fio(integer *, char *, ftnlen);
 
     /* Local variables */
     static integer inonequl, i__, j, m;
@@ -6693,6 +6763,13 @@ L903:
     integer i__1, i__2[2], i__3;
     olist o__1;
 
+    /* Builtin functions */
+    integer s_wsfi(icilist *), do_fio(integer *, char *, ftnlen), e_wsfi(void)
+	    ;
+    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen), s_cat(char *,
+	     char **, integer *, integer *, ftnlen);
+    integer f_open(olist *);
+
     /* Local variables */
     static integer i__;
     static char ch1[1], ch2[1], cname[12], cname1[13];
@@ -6763,6 +6840,13 @@ integer igetfileversion_(integer *fileunit, integer *itext)
     /* System generated locals */
     integer ret_val, i__1;
     alist al__1;
+
+    /* Builtin functions */
+    integer f_rew(alist *), s_rsfe(cilist *), do_fio(integer *, char *, 
+	    ftnlen), e_rsfe(void), i_indx(char *, char *, ftnlen, ftnlen), 
+	    s_rsli(icilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_rsli(void), s_rsue(cilist *), do_uio(integer *, char *, ftnlen),
+	     e_rsue(void);
 
     /* Local variables */
     extern integer len_trim__(char *, ftnlen);
@@ -6894,6 +6978,10 @@ L1000:
     /* System generated locals */
     integer i__1, i__2;
     icilist ici__1;
+
+    /* Builtin functions */
+    integer i_len(char *, ftnlen), s_wsfi(icilist *), do_fio(integer *, char *
+	    , ftnlen), e_wsfi(void), s_wsfe(cilist *), e_wsfe(void);
 
     /* Local variables */
     static integer i__, imax;
