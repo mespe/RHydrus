@@ -122,7 +122,7 @@ static integer c__3 = 3;
     extern /* Subroutine */ int setchembc_(real *, real *, integer *, real *, 
 	    real *, logical *, real *, integer *, integer *);
     static real g0[1001], g1[1001];
-    static shortint i2;
+    static integer i2;
     static real p0, q0[1001], q1[1001];
     static logical lmetdaily;
     static real p3;
@@ -335,8 +335,7 @@ static integer c__3 = 3;
     static logical lvarbc;
     static real cvchim[11];
     static integer kappao[1001];
-    extern /* Subroutine */ int getarg_(shortint *, char *, shortint *, 
-	    ftnlen);
+    extern /* Subroutine */ int getarg_(integer *, char *, ftnlen);
     static real cosalf;
     static logical qdrain, lmobim[20], lhargr, botinf, convgf;
     static real retard[1001], dtmaxc;
@@ -357,9 +356,8 @@ static integer c__3 = 3;
     static real subvol[10], cprevo[1001], thvold[1001];
     static logical shorto;
     static doublereal tprint[1000];
-    static real thvnew[1001], strans[1001];
-    static shortint status;
-    static real dmoist[17160]	/* was [20][11][13][6] */;
+    static real thvnew[1001], strans[1001], dmoist[17160]	/* was [20][
+	    11][13][6] */;
     static integer icount;
     static real dtmaxt, snowmf;
     static integer isunsh;
@@ -535,12 +533,12 @@ static integer c__3 = 3;
 	    );
 
     /* Fortran I/O blocks */
-    static cilist io___8 = { 1, 10, 0, fmt_101, 0 };
-    static cilist io___362 = { 0, 6, 0, 0, 0 };
-    static cilist io___418 = { 0, 6, 0, 0, 0 };
-    static cilist io___419 = { 0, 5, 0, 0, 0 };
-    static cilist io___423 = { 0, 6, 0, 0, 0 };
-    static cilist io___424 = { 0, 5, 0, 0, 0 };
+    static cilist io___7 = { 1, 10, 0, fmt_101, 0 };
+    static cilist io___361 = { 0, 6, 0, 0, 0 };
+    static cilist io___417 = { 0, 6, 0, 0, 0 };
+    static cilist io___418 = { 0, 5, 0, 0, 0 };
+    static cilist io___422 = { 0, 6, 0, 0, 0 };
+    static cilist io___423 = { 0, 5, 0, 0, 0 };
 
 
 /* ####################################################################### */
@@ -577,7 +575,8 @@ static integer c__3 = 3;
     icount = nargs_();
     if (icount > 1) {
 	i2 = 1;
-	getarg_(&i2, cdatapath, &status, (ftnlen)260);
+/* GETARG had a 3rd arugment: , status */
+	getarg_(&i2, cdatapath, (ftnlen)260);
     } else {
 	s_copy(cfilename, "LEVEL_01.DIR", (ftnlen)260, (ftnlen)12);
 	o__1.oerr = 1;
@@ -593,7 +592,7 @@ static integer c__3 = 3;
 	if (i__1 != 0) {
 	    goto L901;
 	}
-	i__1 = s_rsfe(&io___8);
+	i__1 = s_rsfe(&io___7);
 	if (i__1 != 0) {
 	    goto L904;
 	}
@@ -1244,7 +1243,7 @@ L998:
 		vold);
     }
     if (lscreen) {
-	s_wsle(&io___362);
+	s_wsle(&io___361);
 	do_lio(&c__9, &c__1, "beginning of numerical solution", (ftnlen)31);
 	e_wsle();
     }
@@ -1541,10 +1540,10 @@ L13:
 /*     !   call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo, */
 /*     !                   lPrint) */
 	if (lenter) {
-	    s_wsle(&io___418);
+	    s_wsle(&io___417);
 	    do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
 	    e_wsle();
-	    s_rsle(&io___419);
+	    s_rsle(&io___418);
 	    e_rsle();
 	}
 	s_stop("", (ftnlen)0);
@@ -1718,10 +1717,10 @@ L1000:
     errorout_(&ierr, cfilename, cdatapath, &ilengthpath, &lscreen, (ftnlen)
 	    260, (ftnlen)260);
     if (lenter) {
-	s_wsle(&io___423);
+	s_wsle(&io___422);
 	do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
 	e_wsle();
-	s_rsle(&io___424);
+	s_rsle(&io___423);
 	e_rsle();
     }
     s_stop("", (ftnlen)0);
@@ -1749,12 +1748,12 @@ L1000:
     static char cerr__[260*33], cfilenameerr[260];
 
     /* Fortran I/O blocks */
-    static cilist io___427 = { 0, 6, 0, 0, 0 };
-    static cilist io___428 = { 0, 99, 0, 0, 0 };
-    static cilist io___429 = { 0, 6, 0, 0, 0 };
-    static cilist io___430 = { 0, 99, 0, 0, 0 };
+    static cilist io___426 = { 0, 6, 0, 0, 0 };
+    static cilist io___427 = { 0, 99, 0, 0, 0 };
+    static cilist io___428 = { 0, 6, 0, 0, 0 };
+    static cilist io___429 = { 0, 99, 0, 0, 0 };
+    static cilist io___430 = { 0, 6, 0, 0, 0 };
     static cilist io___431 = { 0, 6, 0, 0, 0 };
-    static cilist io___432 = { 0, 6, 0, 0, 0 };
 
 
     s_copy(cerr__, "Open file error in file :", (ftnlen)260, (ftnlen)25);
@@ -1841,22 +1840,22 @@ L1000:
     }
     if (*ierr <= 2) {
 	if (*lscreen) {
-	    s_wsle(&io___427);
+	    s_wsle(&io___426);
 	    do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	    do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
 	    e_wsle();
 	}
-	s_wsle(&io___428);
+	s_wsle(&io___427);
 	do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
 	e_wsle();
     } else {
 	if (*lscreen) {
-	    s_wsle(&io___429);
+	    s_wsle(&io___428);
 	    do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	    e_wsle();
 	}
-	s_wsle(&io___430);
+	s_wsle(&io___429);
 	do_lio(&c__9, &c__1, cerr__ + (*ierr - 1) * 260, (ftnlen)260);
 	e_wsle();
     }
@@ -1866,11 +1865,11 @@ L1000:
     f_clos(&cl__1);
     return 0;
 L901:
-    s_wsle(&io___431);
+    s_wsle(&io___430);
     do_lio(&c__9, &c__1, "Folder with input data of the specified project do"
 	    "es not exist or pathway is too long or corrupted", (ftnlen)98);
     e_wsle();
-    s_wsle(&io___432);
+    s_wsle(&io___431);
     do_lio(&c__9, &c__1, cfilename, (ftnlen)260);
     e_wsle();
     return 0;
