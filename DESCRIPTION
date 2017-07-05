@@ -1,0 +1,9 @@
+Package: RHydrus
+Title: Interface to the Hydrus 1D Simulation Software
+Version: 0.1-0
+Description: This provides a direct interface to the Hydrus FORTRAN code rather
+ than via external executables
+Author: Matt Espe, Duncan Temple Lang
+Maintainer: Duncan Temple Lang <duncan@r-project.org>
+License: BSD_3_clause + file LICENSE
+
