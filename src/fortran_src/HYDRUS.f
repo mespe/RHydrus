@@ -67,7 +67,8 @@
      !                 TPrint,tPrintInt
       character cFileName*260,cDataPath*260
       integer*2 status
-      integer*2 i2,iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer*2 iYear,iMonth,iDay,iHours,iMins,iSecs,i100th
+      integer*4 i2
 
       dimension x(NumNPD),hNew(NumNPD),hOld(NumNPD),hTemp(NumNPD),
      !  MatNum(NumNPD),ParD(11,NMatD),TPrint(NPD),Sink(NumNPD),
@@ -106,7 +107,8 @@
       iCount = NARGS()
       if(iCount.gt.1) then
         i2=1
-        call GETARG(i2, cDataPath, status)
+! GETARG had a 3rd arugment: , status
+        call GETARG(i2, cDataPath)
       else
         cFileName = 'LEVEL_01.DIR'
         open(10,file=cFileName, status='old',err=901)
@@ -432,15 +434,15 @@
         else
           iNonConv=0
         end if
-        if(lStopConv.and..not.ConvgF.and.iNonConv.ge.10) then
-          call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo,
-     !                     lPrint)
-          if(lEnter) then
-            write(*,*) 'Press Enter to continue'
-            read(*,*)
-          end if
-          stop
-        end if
+!    !   if(lStopConv.and..not.ConvgF.and.iNonConv.ge.10) then
+!    !     call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo,
+!    !                     lPrint)
+!    !     if(lEnter) then
+!    !       write(*,*) 'Press Enter to continue'
+!    !       read(*,*)
+!    !     end if
+!    !     stop
+!    !   end if
         if(lMeteo.and.lMetDaily.and..not.lEnBal) ! Output for daily variated meteo information
      !    call DayMeteoOut(t,ETcomb,EvapP,TransP,Rns,Rnl,RadTerm,
      !                     AeroTerm,Precc,rInterc,ExcesInt,TempA,RH_A,
@@ -633,8 +635,8 @@
 
 *     Time governing ---------------------------------------------------
       if(abs(t-tMax).le.0.5*dtMin.or.t.gt.tMax) then
-        call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo,
-     !                   lPrint)
+!     !   call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo,
+!     !                   lPrint)
         if(lEnter) then
           write(*,*) 'Press Enter to continue'
           read(*,*)
