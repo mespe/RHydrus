@@ -1,0 +1,18 @@
+- Find entry point - HYDRUS.c?
+- RCIndex  - make call graph, Understand program
+- Look to see if this has been done before
+See if there a tutorial - python, matlab, R, standalone executable
+
+1. Get *.in files - put these in package
+2. R_hydrus_simple(SEXP r_args)
+   xargc - dim
+   xargv - strings
+   main()
+3. R_set_* data: One for each *.in
+   What does each create?
+   Define structure
+
+   mkATMOS, mkWATER
+   
+4. R_hydrus_complex(a, b, c, d, ...)
+
