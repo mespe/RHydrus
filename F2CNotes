@@ -1,0 +1,8 @@
+Need to define xargc an xargv as neeed in libf2c. They are C in the output of nm
+but not actually defined.  This allows the code to dyn.load() into R.
+
+Added definitions for s_stop and sig_die() to proxies to ensure that calls to these do not
+terminate the R process, but instead raise an R error.
+
+Compile libf2c.a with -g flag so we can debug.
+
