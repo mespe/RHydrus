@@ -1,0 +1,5 @@
+Compiling the .f files.
+HYDRUS.f gives an error in 
+        call GETARG(i2, cDataPath, status)                              
+        Too many arugments in call to getarg.
+This is at line 109.
