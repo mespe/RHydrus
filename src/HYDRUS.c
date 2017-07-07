@@ -1539,6 +1539,9 @@ L13:
     if ((d__1 = t - tmax, abs(d__1)) <= dtmin * .5f || t > tmax) {
 /*     !   call CloseOutput(RTime1,NS,TopInF,BotInF,lChem,lScreen,lMeteo, */
 /*     !                   lPrint) */
+
+
+/* Manually comented out.  Tells the user to press enter and then exits by calling s_stop. Really should just return control to caller.
 	if (lenter) {
 	    s_wsle(&io___417);
 	    do_lio(&c__9, &c__1, "Press Enter to continue", (ftnlen)23);
@@ -1547,6 +1550,7 @@ L13:
 	    e_rsle();
 	}
 	s_stop("", (ftnlen)0);
+*/
     } else {
 	told = t;
 	dtold = dt;
