@@ -6,3 +6,6 @@ terminate the R process, but instead raise an R error.
 
 Compile libf2c.a with -g flag so we can debug.
 
+gettim and getdat are non-portable FORTRAN routines for getting the time (hour, min, secs) and date (year, month, day)
+These seem to be used for writing information for the user.
+
