@@ -1,0 +1,141 @@
+# Goals
+ Allow the caller to specify inputs as files, i.e., keep the current file-based interface
+ but allow more flexibility to specify each file by name, not just the directory and fixed file names.
+  (This at least deals with capitalization issues)
+
+ Allow the caller specif
+
+ Allow the caller set the values of some of the parameters not accessible via vile inputs (if there are any of these we care about)
+
+
+
+# Strategy
+
+
+We convert the .f files to .c via f2c
+ We don't have to as we can directly call FORTRAN code from R.
+ However, to do the programmatic analysis we want to do, it is much easier to have the
+ code in C.
+
+We compile the resulting C code with access to f2c.h. So we add
+the relevant path to the compiler includes.
+This may need to be done via autoconf.
+
+We link the shared library against libf2c.{a/so}.
+
+For Linux (and all platforms as a result), we change the name
+of the MAIN__ routine to something else to avoid conflicts
+with main() in the R executable.
+This is to do with how the loader resolves symbols and this is platform
+dependent and also related to the linker.
+
+
+f2c creates many static variables both in individual .c files
+and also within resulting C routines.
+
+  1) We should first determine if any of these are constant, i.e. are they ever changed.
+  e.g. c__30 - the first static in INPUT.c
+       A reference/pointer to that is passed to igetfileversion() (#152), so its value is modified.
+       Where else is it used however.
+
+  2) Are the  variables used outside of a single routine?
+      e.g. c__33 is defined at the file-level, but only used within meteoin()
+         c__33 is also used in a call to iggetfileversion()
+
+  3) Are the values reinitialized on each run through the code starting at our entry point?
+
+
+
+
+# To run from R
++ Call R_init().
++ Allow caller to specify values for any of the variables and set just these after the call to init().
+  Do this separately so can do it separately from R_init(), i.e. after we read any input files or set the data.
++
+
+
+
+## Collecting the Results
+Do we collect all the information across all iterations and then return to R
+Or do we let the C code write to a file and read it back in later?
+
++ How much output will there be?
++ Do we want to deal with it in chunks?
++ Can we guess the numnber of rows and preallocate sensibly?
+
+
+
+
+## init() routine
+
+In init() in INPUT.c, we have 4 static variables
+  i__, js, inob, lseep.
+
+lseep is initialized to FALSE_, but is never referenced elsewhere.
+Similarly inob is never used.
+There are many references to i__ in the C files, but these are probably references
+to a different i__.
+
+js is used as a counter within a loop.
+
+
+Some of the inputs to init_() are (references to) arrays and not scalars,
+e.g. ntab
+
+
+
+
+
+
+
+
+
+#########
+
+Reading Profile.dat
+This is done in INPUT.c by the nodinf_ routine.
+
+The file/unit is opened in HYDRUS.c and uses unit 32 (in the variable c__32).
+
+The Profile.dat file 
+starts with File version info. Skip this.
+Then an integer giving the number of lines of following data.
+These seem to get skipped.  VERIFY
+
+Then the line
+  300    1    2    0 x         h      Mat  Lay      Beta           Axz            Bxz            Dxz          Temp          Conc            SConc
+
+300 -> numnp is set by do_lio INPUT.c::1393
+This is the number of lines of data in the table.
+
+1 -> ii 
+
+2 -> ns
+
+Compare nump to numnpd and ns to nsd
+
+
+If !*lchem is false.
+Otherwise if *lchem and *ltemp, we would read the values  for
+ x, h, Mat, Lay, Beta, .., Dxz but apparently not Temp Conc and SConc.
+
+Otherwise, if !*lchem - still false, read all from x, h .. Temp
+
+If *lequil - false - read x, h, ,  Temp and then read *ns reals from the reminder of the line.
+In this case, *ns = 2. THese are Conc and SConc.
+
+Otherwise  read x, h, ... Temp,  *ns reals from the same line and then *ns more reals.
+These first *ns reals go into c__[ ii - 1] where ii is the index 1...*ns.
+The other *ns go into  &s[ii] 
+
+Then @1639-1659 set these values for this record
+we set n, x[n], hold[n], matnum, etc.
+
+*ns - number of solutes (?)
+
+
+Passing address of the variable and it magically becomes a pointer to a "flex".
+See libf2c and lread.c specifically.
+
+What does e_rsle do ?  ?? Skip to the end of the line
+          s_rsle()?
