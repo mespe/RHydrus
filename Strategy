@@ -9,6 +9,8 @@
 
 
 
+Add checkInterrupts within the loop. R_CheckUserInterrupt(void)
+
 # Strategy
 
 
@@ -86,6 +88,59 @@ e.g. ntab
 
 
 
+#################
+Does basinf_ read the SELECTOR.in file - Yes.
+The Hydrus1d manual is helpful with types and variables and explanations.
+
+Reading the FORTRAN code:
+file version
+skip 2 lines - BLOCK A.... & Heading  
+Read Hed =  Welcome to HYDRUS-1D
+Read the LUnit......  declaration (literal "LUnit  TUnit  MUnit  (indicated units are obligatory for all input data)")
+Then read each of the 3 values - lunit, tunt, munit into LUint, TUnit, MUnit - local variables.
+Then call conversion for the units for LUnit and TUnit.
+
+Then skip the lWat lChem ..... line
+Then read values t t f t t .... for each of these up to lEquil - set all of these variables.
+For version 4 file format, read snow, upto flux and set all these variables
+
+If lSnow and !lTemp - lSnow = FALSE
+
+Read NMat, NLay, CosAlf - all seem to be integers
+Compare NMat > NMatD || NLay > 10 - PROBLEM
+
+
+Eat BLOCK B & MaxIt ....  header lines
+Read MaxIt, TolTh, TolH
+Eat next header line TopInf ...
+Read TopInF, WLayer, KodTop, lInitW  - KodTop is an integer it appears? The others are logicals.
+
+KodTop == 0 => lVarBC = TRUE
+
+Eat the header line:
+Read BotInF,qGWLF,FreeD,SeepF,KodBot,qDrain,hSeep
+
+
+if(!TopInf & KodTop == -1) || (!BotInf && KodBot == -1 && !qGWLF && !FreeD & !SeepF && !qDrain) 
+    EAT a line
+     Read rTop, rBot, RRoot, (hCritS, hCritA)?
+else rTop = rBot = rRoot = 0
+if(qGWLFF) - eat line, read GWLO0L, Aqh, Bqh
+if(qDrain) - Eat, read iPosDr, Eat, read zBotDr, rSpacing, Entres
+zBotDr = -abs(zBotDr)
+EAT
+switch(iPosDr 
+  1: read rKhTop
+  2  read BaseGW, rKhTop, WetPer
+  3 BaseGW,rKhTp,rKhBot, WetPer
+  4
+  ..... 
+ (See INPUT.f: 84-95)
+
+
+What is the fmt = "(a)" - read a full line of text.
+
+
 
 
 
@@ -93,6 +148,10 @@ e.g. ntab
 #########
 
 Reading Profile.dat
+
+The FORTRAN code is easier to read than the f2c'ed C code doing the input.
+Also, read the manual for HYDRUS1d for the format. Page 206 for PROFILE.dat
+
 This is done in INPUT.c by the nodinf_ routine.
 
 The file/unit is opened in HYDRUS.c and uses unit 32 (in the variable c__32).
@@ -100,7 +159,7 @@ The file/unit is opened in HYDRUS.c and uses unit 32 (in the variable c__32).
 The Profile.dat file 
 starts with File version info. Skip this.
 Then an integer giving the number of lines of following data.
-These seem to get skipped.  VERIFY
+These seem to get skipped.  VERIFY - yes.
 
 Then the line
   300    1    2    0 x         h      Mat  Lay      Beta           Axz            Bxz            Dxz          Temp          Conc            SConc

@@ -9,3 +9,18 @@ Compile libf2c.a with -g flag so we can debug.
 gettim and getdat are non-portable FORTRAN routines for getting the time (hour, min, secs) and date (year, month, day)
 These seem to be used for writing information for the user.
 
+
+In libf2c
+
+l_read()
+s_rsle()
+
+do_fio
+
+
+The following seem to go in sequence as an idiom. See basinf_ in INPUT.c
+s_rsle()
+e_rsle()
+do_lio()
+
+(check) s_rsle - sets the function pointer for do_lio()
